@@ -19,7 +19,7 @@ A dark-themed daily cybersecurity news feed. Every story links back to its sourc
 Copy `.env.example` to `.env.local` and fill in your Supabase values.
 
 ### 3. Install and run locally
-```bash
+```bash 
 npm install
 npm run fetch-feeds   # populates the database with today's articles
 npm run dev           # starts the site at localhost:3000

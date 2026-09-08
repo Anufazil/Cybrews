@@ -8,14 +8,6 @@ html, body {
   color: #DCE3ED;
 }
 
-body {
-  background-image:
-    linear-gradient(#232B3B 1px, transparent 1px),
-    linear-gradient(90deg, #232B3B 1px, transparent 1px);
-  background-size: 48px 48px;
-  background-position: center top;
-  background-attachment: fixed;
-}
 
 body::before {
   content: "";
