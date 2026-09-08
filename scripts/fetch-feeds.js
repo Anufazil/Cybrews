@@ -65,7 +65,7 @@ async function main() {
     return;
   }
 
-    // Upsert on url so re-running the job doesn't create duplicates.
+  // Upsert on url so re-running the job doesn't create duplicates.
   // .select() makes Supabase return only the rows actually written —
   // with ignoreDuplicates: true, rows that already existed are NOT
   // returned here, so this gives us a true "new articles" count.
@@ -84,5 +84,6 @@ async function main() {
   console.log(
     `Checked ${articles.length} articles: ${newCount} new, ${dupeCount} already existed (skipped).`
   );
+}
 
 main();
