@@ -65,17 +65,24 @@ async function main() {
     return;
   }
 
-  // Upsert on url so re-running the job doesn't create duplicates.
-  const { error, count } = await supabase
+    // Upsert on url so re-running the job doesn't create duplicates.
+  // .select() makes Supabase return only the rows actually written —
+  // with ignoreDuplicates: true, rows that already existed are NOT
+  // returned here, so this gives us a true "new articles" count.
+  const { data: inserted, error } = await supabase
     .from("articles")
-    .upsert(articles, { onConflict: "url", ignoreDuplicates: true });
+    .upsert(articles, { onConflict: "url", ignoreDuplicates: true })
+    .select("id");
 
   if (error) {
     console.error("Supabase upsert failed:", error.message);
     process.exit(1);
   }
 
-  console.log(`Upserted ${articles.length} articles (duplicates skipped automatically).`);
-}
+  const newCount = inserted?.length ?? 0;
+  const dupeCount = articles.length - newCount;
+  console.log(
+    `Checked ${articles.length} articles: ${newCount} new, ${dupeCount} already existed (skipped).`
+  );
 
 main();
